@@ -97,8 +97,65 @@
  
  
 \section*{Answer 1}
+\begin{enumerate}
+	\item[(a)]
+	First lets assume that $b \mid (a_1 - a_2)$\\
+	This means that there exists some value $q$ such that $a_1 - a_2 \equiv qb$ by the definition of `divides`\\
+	Using properties of addition, we we can write this as $a_1 \equiv a_2 + qb$\\
+	We also know that $qb \equiv 0$ (mod $b$) because any multiple of b in the set (mod b) is equivalent to 0\\
+	Therefore, we can write this as $a_1 \equiv a_2 + 0$ which is the same as $a_1 \equiv a_2$\\
+	So given that $b \mid (a_1 - a_2)$ we know that $a_1 \equiv a_2$\\
+	Now, let's assume that $a_1 \equiv a_2$\\
+	We can rewrite this as $a_1 \equiv a_2 + 0$ from the properties of 0\\
+	0 can be written as some product $qb$ because any multiple of $b \equiv 0$\\
+	So now we can rewrite the above equation as $a_1 \equiv a_2 + qb$\\
+	Rewriten once again, we have $a_1 - a_2 \equiv qb$\\
+	This means that $b \mid (a_1 - a_2)$ by the definition of `divides`\\
+	Therefore, given $a_1 \equiv a_2$, we know that $b \mid (a_1 - a_2)$\\
+	Therefore, $a_1 \equiv a_2$ if and only if $b \mid (a_1 - a_2)$ \qed
 
-Blah blah.
+	\item[(b)]
+	To prove congruency, we can prove that $a_1 \text{ mod } b = a_2 \text{ mod } b$ by the definition of congruency\\
+	Let's assign $a_1 = a \text{ mod } b$ and $a_2 = a$\\
+	$(a \text{ mod } b) \text{ mod } b = a \text{ mod } b$\\
+	Now we can say that $a \text{ mod } b = r$ by the definition of the `mod` operator\\
+	So, we now have $r \text{ mod } b = r$\\
+	We know that $b$ does not divide r and that $r < b$ by definition of it being a remainder.\\
+	Therefore, $r \text{ mod } b = r$\\
+	So, we have now that $r = r$ from $a \text{ mod } b \equiv a$\\
+	Therefore, $a \text{ mod } b \equiv a$ \qed
+
+	\item[(c)]
+	By the proof in part (b), we know that $a \text{ mod } b \equiv a$\\
+	So we can rewrite $(a_1 \text{ mod } b) + (a_2 \text { mod } b)$ as $a_1 + a _2$\\
+	We can also rewrite $(a_1 \text{ mod } b)(a_2 \text{ mod } b)$ as $a_1a_2$\\
+	Therefore, $(a_1 \text{ mod } b) + (a_2 \text { mod } b) \equiv a_1 + a_2$\\
+	And, $(a_1 \text{ mod } b)(a_2 \text{ mod } b) \equiv a_1a_2$ \qed
+
+	\item[(d)]
+	Using the proof from (a), $a_1 \equiv a_2$ if and only if $b \mid (a_1 - a_2)$\\
+	Let $a_1 = -a$ and $a_2 = (b - a)$\\
+	So, we have to show that $b \mid (-a - (b - a))$\\
+	This reduces to $b \mid -b$\\
+	$b$ does in fact divide $-b$ becuase there is no remainder $r$\\
+	Therefore, $-a \equiv b - a$ \qed
+
+	\item[(e)]
+	$246^{16} \text{ mod } 251 = -2^{16} \text{ mod } 251$\\
+	$-2^{16} \text{ mod } 251 = -2^{8} * -2^{8} \text{ mod } 251$\\
+	$256 * 256 \text{ mod } 251 = 5 * 5 \text{ mod } 251$\\
+	The answer is: $25 \text{ mod } 251$
+
+
+\end{enumerate}
+
+\section*{Answer 5}
+
+	\begin{enumerate}
+		\item[(a)] Their messages are not securly encrypted because they are using the same 96-bit-long pad.  Because there is a common repitiion in the messages (namely that all messages will start with either a `B` or an `S`) there will be the same repition in the encrypted messages as well because the pad $k$ is not changing.  An attack could eventually learn that these correspond to $B$ and $S$
+
+		\item[(b)] Yes he can.  For the same reasons as stated above, after recieving and analyzing some encrypted messages, Moe would could tell that the first bits of the cipher text are the encryption of $B$ or $S$.  Furthermore, he would see that these bits are not changing, that is, the encryption of $B$ and $S$ are always the same.  All Moe would have to do is change the first bits to the ecryption for the opposite action Bob wants to do.  Alice would decrypt this message with no error and would proceed accordingly.
+	\end{enumerate}
 
 
 \noindent\hrulefill
