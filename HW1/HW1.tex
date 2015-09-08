@@ -165,8 +165,13 @@
 	$11 * 7 \text{ mod } 19 = 1$\\
 
 	\item[(c)]
-	Given positive integers $a, b, c$:\\
-	If $b = 0$, the answer is 1\\
+	Def EfficientAlg($a, b, c$):\\
+	If $b = 0$: return 1\\
+	If $b = 1$: return $a \text{ mod } c$\\
+	Else:\\
+	If $b$ is even: return (EfficientAlg($a, b/2, c$) * EfficientAlg($a, b/2, c$)) mod $c$\\
+	If $b$ is odd: return ($a * $ EfficientAlg($a, b-1, c$)) mod c\\
+	If memoization is used, this algorithm is very efficent.
 
 \end{enumerate}
 
@@ -177,14 +182,43 @@
 	This can be written as $(ra - sa) \text{ mod } p = 0 \text{ mod } p$ (by property of congruence)\\
 	This means that $p \mid (ra - sa)$ or $p \mid a(r - s)$ (by distributive property)\\
 	Therefore, $p \mid a$ or $p \mid (r - s)$ (by our definition of prime)\\
-	We know that $p \nmid a$ because $a \nequiv 0$\\
+	We know that $p \nmid a$ because $a \not \equiv 0$\\
 	Therefore, $(r - s) \equiv 0$\\
 	Therefore, $r \equiv s$ \qed
 
 	\item[(b)]
-	
+	First, let's assume that a number in the set \{1,2...(p-1)\} can be hit more than once\\
+	This would mean $\exists_{x,y} \in \{1,2,...,(p-1)\}, x \neq y $ such that $xa \equiv ya$ \\
+	However, we have already proved that if $xa \equiv ya$ then $x \equiv a$.
+	This is a contradiction, so a number cannot be hit more than once.\\
+	Now let's assume that a nummber cannot be hit.\\
+	This means that $\exists_x \in \{1,2,...,(p-1)\}$ such that $\forall_y \in \{1,2,...,(p-1)\} xa \not \equiv y$\\
+	In order for this to be the case, $xa \equiv 0$ (Because 0 is the only number not in the set)\\
+	This means that $p \mid xa$, so $p \mid x$ or $p \mid a$\\
+	We know that $a \not \equiv 0$ therefore $p \mid x$\\
+	However, because $p$ is a prime number, there is no number $x$ in the set $\{1,2,...,(p-1)\}$ such that $p \mid x$ (By definition of prime number)\\
+	Therefore, every number must be hit at least once.\\
+	I have proven that every number must be hit at least once, and at most once, therefore every number in the set $\{1,2,...,(p-1)\}$ is hit exactly once \qed
+
+	\item[(c)] 
+	Let's start by multiplying the values $a*2a*3a\dots (p-1)a$\\
+	Because we know that every element must be hit, this can be rewritten as $1*2*\dots*(p-1)$ or $(p-1)!$\\
+	We can also write it as $a^{p-1} * (p-1)!$ (by distributive property)\\
+	So we have that $a^{p-1} * (p-1)! \equiv (p-1)!$\\
+	Thus, $a^{p-1} \equiv 1$ (By the multiplicative identity) \qed
+
+	\item[(d)] FurMAH
+
+	\item[(e)]
+	We know that $a^{p-1} \equiv 1$\\
+	We can rewrite this as $a * a^{p-2} \equiv 1$\\
+	Now, we can just say that $b = a^{p-2}$\\
+	Therefore, the has to exist some $b$ where $ab \equiv 1$ for $a \not\equiv 0$ and some prime $p$
 
 \end{enumerate}
+
+\section*{Answer 4}
+
 
 \section*{Answer 5}
 
