@@ -145,7 +145,44 @@
 	$-2^{16} \text{ mod } 251 = -2^{8} * -2^{8} \text{ mod } 251$\\
 	$256 * 256 \text{ mod } 251 = 5 * 5 \text{ mod } 251$\\
 	The answer is: $25 \text{ mod } 251$
+\end{enumerate}
 
+\section*{Answer 2}
+\begin{enumerate}
+	\item[(a)]
+	$7^2 \text{ mod } 19 = 11$\\
+	$7^4 \text{ mod } 19 = 7^2 \text{ mod } 19 * 7^2 \text{ mod } 19 = 11 * 11 \text{ mod } 19 = 7$\\
+	$7^8 \text{ mod } 19 = 7^4 \text{ mod } 19 * 7^4 \text{ mod } 19 = 7^2 \text{ mod } 19 = 11$\\
+	$7^{16} \text{ mod } 19 = 7^8 \text{ mod } 19 * 7^8 \text{ mod } 19 = 7$\\
+	I'm noticing the pattern...\\
+	$7^{32} \text{ mod } 19 = 11$\\
+	$7^{64} \text{ mod } 19 = 7$
+
+	\item[(b)]
+	$7^{75} \text{ mod } 19 = 7^{64} \text{ mod } 19 * 7^8 \text{ mod } 19 * 7^2 \text{ mod } 19 * 7 \text{ mod } 19$\\
+	$(7 * 11 * 11 * 7) \text{ mod } 19$
+	$7^2 \text{ mod } 19 * (7^2 * 7^2) \text{ mod } 19$ because 11 = $7^2 \text{ mod } 19$\\
+	$11 * 7 \text{ mod } 19 = 1$\\
+
+	\item[(c)]
+	Given positive integers $a, b, c$:\\
+	If $b = 0$, the answer is 1\\
+
+\end{enumerate}
+
+\section*{Answer 3}
+\begin{enumerate}
+	\item[(a)]
+	First, rewrite as $ra - sa \equiv 0$ (by property of subtraction)\\
+	This can be written as $(ra - sa) \text{ mod } p = 0 \text{ mod } p$ (by property of congruence)\\
+	This means that $p \mid (ra - sa)$ or $p \mid a(r - s)$ (by distributive property)\\
+	Therefore, $p \mid a$ or $p \mid (r - s)$ (by our definition of prime)\\
+	We know that $p \nmid a$ because $a \nequiv 0$\\
+	Therefore, $(r - s) \equiv 0$\\
+	Therefore, $r \equiv s$ \qed
+
+	\item[(b)]
+	
 
 \end{enumerate}
 
