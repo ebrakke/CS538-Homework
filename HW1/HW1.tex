@@ -93,47 +93,50 @@
 
 \thispagestyle{fancy}
 
-\myparab{Collaborators: }  .
+\myparab{Collaborators: Alison Kendler}
  
  
 \section*{Answer 1}
 \begin{enumerate}
 	\item[(a)]
-	First lets assume that $b \mid (a_1 - a_2)$\\
-	This means that there exists some value $q$ such that $a_1 - a_2 \equiv qb$ by the definition of `divides`\\
-	Using properties of addition, we we can write this as $a_1 \equiv a_2 + qb$\\
-	We also know that $qb \equiv 0$ (mod $b$) because any multiple of b in the set (mod b) is equivalent to 0\\
-	Therefore, we can write this as $a_1 \equiv a_2 + 0$ which is the same as $a_1 \equiv a_2$\\
+	Thm: $(a_1 \equiv a_2)$ if and only if $b \mid (a_1 - a_2)$\\
+	Proof: Assume $b \mid (a_1 - a_2)$\\
+	$b \mid (qb + r_1) - (qb + r_2)$ (by division with remainder fact)\\
+	$b \mid (qb - qb) + (r_1 - r_2)$ (Associative property)\\
+	$b \mid (r_1 - r_2)$\\
+	$(r_1 - r_2) = 0$ (by definition of divides)\\
+	$r_1 = r_2$ (by addition)\\
+	$a_1 \text{ mod } b = a_2 \text{ mod } b$ (definition of `mod`)\\
+	$a_1 \equiv a_2$ (by fact of congruency)\\
 	So given that $b \mid (a_1 - a_2)$ we know that $a_1 \equiv a_2$\\
-	Now, let's assume that $a_1 \equiv a_2$\\
-	We can rewrite this as $a_1 \equiv a_2 + 0$ from the properties of 0\\
-	0 can be written as some product $qb$ because any multiple of $b \equiv 0$\\
-	So now we can rewrite the above equation as $a_1 \equiv a_2 + qb$\\
-	Rewriten once again, we have $a_1 - a_2 \equiv qb$\\
-	This means that $b \mid (a_1 - a_2)$ by the definition of `divides`\\
-	Therefore, given $a_1 \equiv a_2$, we know that $b \mid (a_1 - a_2)$\\
-	Therefore, $a_1 \equiv a_2$ if and only if $b \mid (a_1 - a_2)$ \qed
+	\newline
+	Now, assume $a_1 \equiv a_2$\\
+	$a_1 - a_2 \equiv 0$ (using subtraction)\\
+	$(a_1 - a_2) \text{ mod } b = 0 \text{ mod } b$ (by fact of congruency)\\
+	$r_{a_1 - a_2} = 0 \text{ mod } b$ (by definition of `mod`)\\
+	Therefore, $b \mid (a_1 - a_2)$ (by definition of divides)\\
+	It has been proven in both directions\\
+	\qed
 
 	\item[(b)]
-	To prove congruency, we can prove that $a_1 \text{ mod } b = a_2 \text{ mod } b$ by the definition of congruency\\
-	Let's assign $a_1 = a \text{ mod } b$ and $a_2 = a$\\
-	$(a \text{ mod } b) \text{ mod } b = a \text{ mod } b$\\
-	Now we can say that $a \text{ mod } b = r$ by the definition of the `mod` operator\\
-	So, we now have $r \text{ mod } b = r$\\
-	We know that $b$ does not divide r and that $r < b$ by definition of it being a remainder.\\
-	Therefore, $r \text{ mod } b = r$\\
+	Thm: $a \text{ mod } b \equiv a$\\
+	Proof: $r \equiv a$ (by definiton of `mod`)\\
+	$r \text{ mod } b = a \text{ mod } b$ (by fact about congruency)\\
+	$r \text{ mod } b = r$ (by definition of `mod`)\\
+	$r = r$ because $r$ is the remainder, so $r$ mod $b$ is just $r$\\
 	So, we have now that $r = r$ from $a \text{ mod } b \equiv a$\\
 	Therefore, $a \text{ mod } b \equiv a$ \qed
 
 	\item[(c)]
-	By the proof in part (b), we know that $a \text{ mod } b \equiv a$\\
-	So we can rewrite $(a_1 \text{ mod } b) + (a_2 \text { mod } b)$ as $a_1 + a _2$\\
-	We can also rewrite $(a_1 \text{ mod } b)(a_2 \text{ mod } b)$ as $a_1a_2$\\
-	Therefore, $(a_1 \text{ mod } b) + (a_2 \text { mod } b) \equiv a_1 + a_2$\\
-	And, $(a_1 \text{ mod } b)(a_2 \text{ mod } b) \equiv a_1a_2$ \qed
+	Thm: $(a_1 \text{ mod } b) + (a_2 \text{ mod } b) \equiv a_1+a_2$ and $(a_1 \text{ mod } b)(a_2 \text{ mod } b) \equiv a_1a_2$\\
+	Proof: We know, $a \text{ mod } b \equiv a$ (by proof in (b))\\
+	Using this knowledge, we can rewrite both congruencies as: $a_1+a_2 \equiv a_1 + a_2$ and $a_1a_2 \equiv a_1a_2$ (substitution)\\
+	Therefore, we have shown the theorm is true\\
+	\qed
 
 	\item[(d)]
-	Using the proof from (a), $a_1 \equiv a_2$ if and only if $b \mid (a_1 - a_2)$\\
+	Thm: $-a \equiv b - a$\\
+	Proof: We know that $a_1 \equiv a_2$ if and only if $b \mid (a_1 - a_2)$ (using proof from part (a))\\
 	Let $a_1 = -a$ and $a_2 = (b - a)$\\
 	So, we have to show that $b \mid (-a - (b - a))$\\
 	This reduces to $b \mid -b$\\
@@ -178,31 +181,45 @@
 \section*{Answer 3}
 \begin{enumerate}
 	\item[(a)]
-	First, rewrite as $ra - sa \equiv 0$ (by property of subtraction)\\
-	This can be written as $(ra - sa) \text{ mod } p = 0 \text{ mod } p$ (by property of congruence)\\
-	This means that $p \mid (ra - sa)$ or $p \mid a(r - s)$ (by distributive property)\\
+	Thm: For any integers $a \not\equiv 0, r, s$, if $ra \equiv sa$ then $r \equiv s$\\
+	Proof: \\
+	$ra - sa \equiv 0$ (subtraction)\\
+	$(ra - sa) \text{ mod } p = 0 \text{ mod } p$ (by property of congruence)\\
+	This means that $p \mid (ra - sa)$ (by 1(a))\\
+	$p \mid a(r - s)$ (distributive property)\\
 	Therefore, $p \mid a$ or $p \mid (r - s)$ (by our definition of prime)\\
 	We know that $p \nmid a$ because $a \not \equiv 0$\\
-	Therefore, $(r - s) \equiv 0$\\
-	Therefore, $r \equiv s$ \qed
+	Therefore, $(r - s) \equiv 0$ (property of divides)\\
+	Therefore, $r \equiv s$ (addition)\qed
 
 	\item[(b)]
+	Thm: For any integer $a \not\equiv 0$, $a$ mod $p$, $2a$ mod $p$,...,$(p-1)$ mod p will hit every element in 1,2,3,...,$p-1$ exactly once\\
+	Proof:\\
 	First, let's assume that a number in the set \{1,2...(p-1)\} can be hit more than once\\
-	This would mean $\exists_{x,y} \in \{1,2,...,(p-1)\}, x \neq y $ such that $xa \equiv ya$ \\
-	However, we have already proved that if $xa \equiv ya$ then $x \equiv a$.
+	$\exists_{x,y} \in \{1,2,...,(p-1)\}, x \neq y $ such that $xa \equiv ya$ \\
+	However, we have already proved that if $xa \equiv ya$ then $x \equiv a$ (by 3(a))\\
 	This is a contradiction, so a number cannot be hit more than once.\\
-	Now let's assume that a nummber cannot be hit.\\
-	This means that $\exists_x \in \{1,2,...,(p-1)\}$ such that $\forall_y \in \{1,2,...,(p-1)\} xa \not \equiv y$\\
-	In order for this to be the case, $xa \equiv 0$ (Because 0 is the only number not in the set)\\
+	\newline
+	Now let's assume that a number cannot be hit.\\
+	$\exists_x \in \{1,2,...,(p-1)\}$ such that $\forall_y \in \{1,2,...,(p-1)\} xa \not \equiv y$\\
+	In order for this to be the case, $xa \equiv 0$ or $xa \equiv z$ where $z > p$ (The only numbers not in the set)\\
+	\newline
+	For $xa \equiv 0$\\
 	This means that $p \mid xa$, so $p \mid x$ or $p \mid a$\\
 	We know that $a \not \equiv 0$ therefore $p \mid x$\\
 	However, because $p$ is a prime number, there is no number $x$ in the set $\{1,2,...,(p-1)\}$ such that $p \mid x$ (By definition of prime number)\\
+	\newline
+	For $xa \equiv z$ where $z > p$\\
+	This is impossible, because $z$ mod $p$ is $r$ where $0 < r < p$ (fact about integer division)\\
+	\newline
 	Therefore, every number must be hit at least once.\\
 	I have proven that every number must be hit at least once, and at most once, therefore every number in the set $\{1,2,...,(p-1)\}$ is hit exactly once \qed
 
-	\item[(c)] 
+	\item[(c)]
+	Thm: $a \not\equiv 0$ (mod $p$) then $a^{p-1} \equiv 1$\\
+	Proof:\\
 	Let's start by multiplying the values $a*2a*3a\dots (p-1)a$\\
-	Because we know that every element must be hit, this can be rewritten as $1*2*\dots*(p-1)$ or $(p-1)!$\\
+	Because we know that every element must be hit, this can be rewritten as $1*2*\dots*(p-1)$ or $(p-1)!$ (by 3(b))\\
 	We can also write it as $a^{p-1} * (p-1)!$ (by distributive property)\\
 	So we have that $a^{p-1} * (p-1)! \equiv (p-1)!$\\
 	Thus, $a^{p-1} \equiv 1$ (By the multiplicative identity) \qed
@@ -210,14 +227,34 @@
 	\item[(d)] FurMAH
 
 	\item[(e)]
-	We know that $a^{p-1} \equiv 1$\\
-	We can rewrite this as $a * a^{p-2} \equiv 1$\\
+	Thm: $\forall_a a \not\equiv 0 (\text{ mod } p)$ then $\exists_b ab \equiv 1$\\
+	Proof:\\
+	We know that $a^{p-1} \equiv 1$ (Fermat's theorm)\\
+	We can rewrite this as $a * a^{p-2} \equiv 1$ (multiplying exponents with equivalent bases)\\
 	Now, we can just say that $b = a^{p-2}$\\
-	Therefore, the has to exist some $b$ where $ab \equiv 1$ for $a \not\equiv 0$ and some prime $p$
+	Therefore, the has to exist some $b$ where $ab \equiv 1$ for $a \not\equiv 0$ and some prime $p$\\
+	\qed
 
 \end{enumerate}
 
 \section*{Answer 4}
+Given a message space of size $s$, isolate it into the unique characters that exist in that message space.\\
+Determine the size of this character set, $U$, order the characers, and assign each character an index $i$\\
+Now for any message $m$, choose a uniformly random key $k$ that also exists in $s$. (keys should not be reused)\\
+Now add each character's index from $m$ it's corrosponding character's index in $k$ modulo the size of $U$.  This is cipher text $c$\\
+The receiver then subtracts each character's index in $c$ from the character's index in $k$ modulo the size of $U$ to get $m$\\
+The number of keys is exactly $s$, the number of possible messages that exist because you are chosing the key from this message space\\
+\newline
+Thm: This crypto system in perfectly secure\\
+\newline
+Proof: I will prove it is Shannon secure, which proves that it is perfectly secure\\
+Shannon security states that $\Pr_{k \in K}[Enc_k(m_0) = c] = \Pr_{k \in K}[Enc_k(m_1) = c]$ for some $m_0,m_1 \in M$\\
+Let's assume we don't have Shannon security\\
+\newline
+This would mean that given $c$, it is more likely to be $m_0$ than $m_1$, or vice versa\\
+This would mean that for some index $i$, $m_0[i] + k[i] (\text{ mod } |U|) = c[i]$ is more likely than getting $c[i]$ from $m_1$ under a different random key $k$ (or vice versa)\\
+However this could not be, because we have chosen the key $k$ at random for both $m_0$ and $m_1$, any resulting $c[i]$ from encrypting $m_0$ is just as likely to happen from encrypting $m_1$.\\
+Therefore it is Shannon Seucre and from Thm 1 from the class notes, it is perfectly secure \qed
 
 
 \section*{Answer 5}
