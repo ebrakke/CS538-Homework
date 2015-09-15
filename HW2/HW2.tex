@@ -1,0 +1,154 @@
+\documentclass[11pt]{article}
+\usepackage{amssymb,amsmath,amsthm,url,graphicx}
+\usepackage{fancyhdr}
+
+\def\shownotes{1}   % set 1 for version with author notes
+                    % set 0 for no notes
+
+
+
+%uncomment to get hyperlinks
+%\usepackage{hyperref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Some macros (you can ignore everything until "end of macros")
+
+\topmargin 0pt \advance \topmargin by -\headheight \advance
+\topmargin by -\headsep
+
+\textheight 8.9in
+
+\oddsidemargin 0pt \evensidemargin \oddsidemargin \marginparwidth
+0.5in
+
+\textwidth 6.5in
+
+%%%%%%
+
+\providecommand{\vs}{vs. }
+\providecommand{\ie}{\emph{i.e.,} }
+\providecommand{\eg}{\emph{e.g.,} }
+\providecommand{\cf}{\emph{cf.,} }
+\providecommand{\etc}{\emph{etc.} }
+
+\newcommand{\getsr}{\gets_{\mbox{\tiny R}}}
+\newcommand{\bits}{\{0,1\}}
+\newcommand{\bit}{\{0,1\}}
+\newcommand{\Ex}{\mathbb{E}}
+\newcommand{\eqdef}{\stackrel{def}{=}}
+\newcommand{\To}{\rightarrow}
+\newcommand{\e}{\epsilon}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Gen}{\mathsf{Gen}}
+\newcommand{\Enc}{\mathsf{Enc}}
+\newcommand{\Dec}{\mathsf{Dec}}
+\newcommand{\Sign}{\mathsf{Sign}}
+\newcommand{\Ver}{\mathsf{Ver}}
+
+\providecommand{\mypara}[1]{\smallskip\noindent\emph{#1} }
+\providecommand{\myparab}[1]{\smallskip\noindent\textbf{#1} }
+\providecommand{\myparasc}[1]{\smallskip\noindent\textsc{#1} }
+\providecommand{\para}{\smallskip\noindent}
+
+
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem{ex}{Exercise}
+\newtheorem{definition}{Definition}
+
+%%%%%%%  Author Notes %%%%%%%d
+%
+\ifnum\shownotes=1
+\newcommand{\authnote}[2]{{ $\ll$\textsf{\footnotesize #1 notes: #2}$\gg$}}
+\else
+\newcommand{\authnote}[2]{}
+\fi
+\newcommand{\Snote}[1]{{\authnote{Solution}{#1}}}
+\newcommand{\Inote}[1]{{\authnote{Solution}{#1}}}
+\newcommand{\Ichanged}[1]{{\authnote{Changed}{#1}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\VAR}{\mathrm{VAR}}
+
+
+
+% end of macros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% page counting, header/footer
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\lhead{\footnotesize \parbox{11cm}{CS538, Boston University, Fall 2015} }
+\rhead{Erik Brakke}
+\renewcommand{\headheight}{24pt}
+
+\begin{document}
+
+\title{Homework 2}
+\author{Erik Brakke}
+\maketitle
+
+\thispagestyle{fancy}
+
+\myparab{Collaborators: }  .
+ 
+ 
+\section*{Answer 1}
+\begin{enumerate}
+	\item[(a)]
+	Thm: If $x \equiv y$ (mod $p-1$) then for any $a, a^x \equiv a^y$ (mod $p$)\\
+	\newline
+	Proof:  $x = (p-1)k_x + r$ and $y = (p-1)k_y + r$ (by the unique fact about division)\\
+	Therefore, $a^{(p-1)k_x + r} \equiv a^{(p-1)k_y + r}$ (mod $p$) (using substitution)\\
+	$a^{(p-1)k_x + r} \text{ mod } p = a^{(p-1)k_y + r} \text{ mod } p$ (fact about congruency)\\
+	$(a^{(p-1)})^{k_x} \text{ mod } p * a^r \text{ mod } p = (a^{(p-1)})^{k_x} \text{ mod } p * a^r \text{ mod } p$ (property of exponents and proof from HW1 that the order of 'mod' does not matter)\\
+	$1 * a^r \text{ mod } p = 1 * a^r \text{ mod } p$ (by Fermat's little theorm)\\
+	$a^r \equiv a^r$\\ (fact about congruency)\\
+	$r = x \text{ mod } p-1 = y \text{ mod } p-1$ (by definition of 'mod' and our premise)\\
+	Therefore, if $x \equiv y$ (mod $p-1$) then for any $a, a^x \equiv a^y$ (mod $p$)\\
+	\qed
+
+	\item[(b)]
+	Thm: if $g$ is a generator, then $g^x \equiv 1$ if and only if $(p-1) \mid x$
+	\newline
+	Proof: Assume $g^x \equiv 1$\\
+	$g^{p-1} \equiv 1$ ($g \in Z^*_p$ by def'n of generator, Fermat's Little Theorm)\\
+	$x = p-1$ (substitution)\\
+	Therefore, $(p-1) \mid x$ (definition of divides)\\
+	\newline
+	Now, assume $(p-1) \mid x$\\
+	Let $r = x$ (mod $p-1$) (Def'n of 'mod')\\
+	$r = 0$ (def'n of divides)\\
+	Consider $g^r$ (mod $p$)\\
+	$g^{x \text{ mod } p-1}$ (substitution)\\
+	$g^0 = 1$ (becasue $(p-1) \mid x$)\\
+	Therefore $g^x \equiv 1$\\
+	\qed
+
+	\item[(c)]
+	Thm: if $g$ is a generator, and $g^x \equiv g^y$ then $x \equiv y$ (mod $p-1$)\\
+	\newline
+	Proof: Let's assume $g^x \equiv g^y$ and $x \not\equiv y$ (mod $p-1$)\\
+	$x \text{ mod } p-1 \neq y \text{ mod } p-1$ (Fact of congruency)\\
+	$r_x \neq r_y$ (definition of mod)\\
+	This means that $\exists_{r_x,r_y}$ $r_xr_y \in (1,...,p-1), r_x \neq r_y$ and $g^{r_x} \equiv g^{r_y}$\\
+	However, $g$ is a generator, which means that each element in $(1,...,p-1)$ maps to a distinct element in $(1,...,p-1)$ (def'n of generator)\\
+	Therefore, $g^{r_x} \not\equiv g^{r_y}$ which means $g^x \not\equiv g^y$\\
+	THis is a contradiction, therefore the statement must be true
+	\qed
+
+
+\end{enumerate}
+
+
+\noindent\hrulefill
+
+
+\section*{References}
+
+None
+
+\end{document} 
