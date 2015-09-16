@@ -112,7 +112,7 @@
 	\qed
 
 	\item[(b)]
-	Thm: if $g$ is a generator, then $g^x \equiv 1$ if and only if $(p-1) \mid x$
+	Thm: if $g$ is a generator, then $g^x \equiv 1$ if and only if $(p-1) \mid x$\\
 	\newline
 	Proof: Assume $g^x \equiv 1$\\
 	$g^{p-1} \equiv 1$ ($g \in Z^*_p$ by def'n of generator, Fermat's Little Theorm)\\
@@ -139,6 +139,56 @@
 	Therefore, $g^{r_x} \not\equiv g^{r_y}$ which means $g^x \not\equiv g^y$\\
 	THis is a contradiction, therefore the statement must be true
 	\qed
+
+	\item[(d)]
+	Thm: If $g$ is a generator, and $a = g^x$ (mod $p$), and $x$ is even, then $a$ has a square root modulo $p$\\
+	\newline
+	Proof: $a^{1/2} = g^{x/2}$ mod $p$ (taking square roots of both sides)\\
+	Let's assign $y = x/2$.  So we have $a^{1/2} = g^y$ mod $p$\\
+	Because $g$ is a generator, then if $y \in \{1,2,...,p-1\}$ then $g^y \in \{1,2,...,p-1\}$ (def'n of generator)\\
+	$x = 2y$ (because $x$ is even)\\
+	This means that $y \in \{1,2,...,p-1\}$\\
+	Therefore $g^y \in \{1,2,...,p-1\}$\\
+	Therefore, $a$ has a square root modulo $p$\\
+	\qed
+	\newline
+	Thm: if $a$ has a square root modulo $p$, then $\exists_x, x \in \{1,...,p-1\}, g^x$ mod $p = a^2$ and $x$ is even\\
+	\newline
+	Proof: $a^{1/2}$ mod $p = r$ (def'n of 'mod')\\
+	Because $r \in \{1,...,p-1\}$ then $\exists_y,g$ $g$ is a generator and $y \in \{1,...p-1\}$ where $g^y \text{ mod } p = r$ (def'n of generator)\\
+	Therefore, $g^y \equiv a^{1/2}$\\
+	Now let's assume that $\exists_x, x \in \{1,...,p-1\}$ and $x$ is odd and $g^x \text{ mod } p = a$\\
+	We know that $r^2 \equiv a$ (knowledge of square roots)\\
+	Therefore, $g^2y \equiv g^x$ (substitution)\\
+	This means that $2y = x$\\
+	This is a contradiction because we assumed that $x$ was odd, though this shows that $x$ must be even\\
+	Therefore, $x$ must be even\\
+	\qed
+
+	\item[(e)]
+	Thm: If $a$ is a square, then $a^{\frac{p-1}{2}}} \equiv 1$\\
+	\newline
+	Proof: Let's assume there is a generator $g$ such that $g^x \equiv a$\\
+	Because $a$ is a square, we know that $x$ is even (From proof (d))\\
+	Now, let's say that $x = (p-1)$\\
+	We know that $g^(p-1) \equiv 1$ (Fermat's Little Theorm)\\
+	$g^{\frac{(p-1)}{2}} \equiv 1^{\frac{1}{2}}$ (sqrt of both sides)\\
+	Therefore, $a^{\frac{(p-1)}{2}} \equiv 1$\\
+	\qed
+	\newline
+	Thm: If $a$ is non-square, then $a^{\frac{p-1}{2}} \not\equiv 1$\\
+	\newline
+	Proof: Let's assume there is a generator $g$ such that $g^x \equiv a$\\
+	We know that $x$ must be odd (from proof (d))\\
+	Now let's assign $x = (p-1)$\\
+	We know that $g^(p-1) \equiv 1$ (Fermat's Little Theorm)\\
+	However, if we were to take the square root of both sides, we would have $g^{\frac{p-1}{2}}$\\
+	$\frac{p-1}{2} \not\in \{1,...,p-1\}$ (Because $x$ is odd)\\
+	Therefore, $g^{\frac{p-1}{2}} \not\in \{1,...,p-1\}$ (def'n of generator)\\
+	Therefore, $a^{\frac{p-1}{2}} \not\equiv 1$ (substitution)\\
+	\qed
+
+
 
 
 \end{enumerate}
