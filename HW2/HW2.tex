@@ -137,55 +137,50 @@
 	This means that $\exists_{r_x,r_y}$ $r_xr_y \in (1,...,p-1), r_x \neq r_y$ and $g^{r_x} \equiv g^{r_y}$\\
 	However, $g$ is a generator, which means that each element in $(1,...,p-1)$ maps to a distinct element in $(1,...,p-1)$ (def'n of generator)\\
 	Therefore, $g^{r_x} \not\equiv g^{r_y}$ which means $g^x \not\equiv g^y$\\
-	THis is a contradiction, therefore the statement must be true
+	This is a contradiction, therefore the statement must be true
 	\qed
 
 	\item[(d)]
 	Thm: If $g$ is a generator, and $a = g^x$ (mod $p$), and $x$ is even, then $a$ has a square root modulo $p$\\
 	\newline
-	Proof: $a^{1/2} = g^{x/2}$ mod $p$ (taking square roots of both sides)\\
-	Let's assign $y = x/2$.  So we have $a^{1/2} = g^y$ mod $p$\\
-	Because $g$ is a generator, then if $y \in \{1,2,...,p-1\}$ then $g^y \in \{1,2,...,p-1\}$ (def'n of generator)\\
-	$x = 2y$ (because $x$ is even)\\
-	This means that $y \in \{1,2,...,p-1\}$\\
-	Therefore $g^y \in \{1,2,...,p-1\}$\\
-	Therefore, $a$ has a square root modulo $p$\\
+	Proof: Because $x$ is even, we can rewrite it as $2y$ where $y$ is also a number in \{1,...,p-1\}\\
+	$a = g^{2y}$ mod $p$\\
+	$a = (g^y \text{ mod } p) * (g^y \text{ mod } p)$ (Splitting exponents with like bases)\\
+	Because $g$ is a generator, we know that $g^y \in \{1,...,p-1\}$ and $g^y \not\equiv g^x$ (def'n of generator)\\
+	Therefore $g^y$ is the square root of $a$ (Knowledge of square roots)\\
 	\qed
 	\newline
-	Thm: if $a$ has a square root modulo $p$, then $\exists_x, x \in \{1,...,p-1\}, g^x$ mod $p = a^2$ and $x$ is even\\
+	Thm: if $a$ has a square root modulo then $x$ is even\\
 	\newline
-	Proof: $a^{1/2}$ mod $p = r$ (def'n of 'mod')\\
-	Because $r \in \{1,...,p-1\}$ then $\exists_y,g$ $g$ is a generator and $y \in \{1,...p-1\}$ where $g^y \text{ mod } p = r$ (def'n of generator)\\
-	Therefore, $g^y \equiv a^{1/2}$\\
-	Now let's assume that $\exists_x, x \in \{1,...,p-1\}$ and $x$ is odd and $g^x \text{ mod } p = a$\\
-	We know that $r^2 \equiv a$ (knowledge of square roots)\\
-	Therefore, $g^2y \equiv g^x$ (substitution)\\
-	This means that $2y = x$\\
-	This is a contradiction because we assumed that $x$ was odd, though this shows that $x$ must be even\\
-	Therefore, $x$ must be even\\
+	Proof: Let's represent $a$ as a generator $g$ raised to some $x$ mod p.  $a = g^x$ mod $p$\\
+	Let's also assume that $x$ is odd\\
+	$g^x \equiv g^y * g^y$ (because we assume that $a$ has a square root)\\
+	$g^x \equiv g^{2y}$\\
+	This means that $x = 2y$\\
+	This is a contradiction, because we assumed $x$ was even\\
+	Therefore, if $a$ has a square root, then $x$ must be even.
 	\qed
 
 	\item[(e)]
-	Thm: If $a$ is a square, then $a^{\frac{p-1}{2}}} \equiv 1$\\
+	Thm: If $a$ is a square, then $a^{\frac{p-1}{2}} \equiv 1$\\
 	\newline
 	Proof: Let's assume there is a generator $g$ such that $g^x \equiv a$\\
-	Because $a$ is a square, we know that $x$ is even (From proof (d))\\
-	Now, let's say that $x = (p-1)$\\
-	We know that $g^(p-1) \equiv 1$ (Fermat's Little Theorm)\\
-	$g^{\frac{(p-1)}{2}} \equiv 1^{\frac{1}{2}}$ (sqrt of both sides)\\
-	Therefore, $a^{\frac{(p-1)}{2}} \equiv 1$\\
+	We know that $x$ must be even (by the previous part)\\
+	$x = 2y$ for some $y \in \{1,...,p-1\}$\\
+	$a \equiv g^{2y}$\\
+	Now consider $(g^{2y})^{\frac{p-1}{2}}$\\
+	$g^{y(p-1)}$ (2's cancel)\\
+	Because $(p-1) \mid y(p-1)$ we know that $g^{y(p-1)} \equiv 1$ (proof from (b))\\
+	Therefore, $a^{\frac{p-1}{2}} \equiv 1$\\
 	\qed
 	\newline
 	Thm: If $a$ is non-square, then $a^{\frac{p-1}{2}} \not\equiv 1$\\
 	\newline
 	Proof: Let's assume there is a generator $g$ such that $g^x \equiv a$\\
 	We know that $x$ must be odd (from proof (d))\\
-	Now let's assign $x = (p-1)$\\
-	We know that $g^(p-1) \equiv 1$ (Fermat's Little Theorm)\\
-	However, if we were to take the square root of both sides, we would have $g^{\frac{p-1}{2}}$\\
-	$\frac{p-1}{2} \not\in \{1,...,p-1\}$ (Because $x$ is odd)\\
-	Therefore, $g^{\frac{p-1}{2}} \not\in \{1,...,p-1\}$ (def'n of generator)\\
-	Therefore, $a^{\frac{p-1}{2}} \not\equiv 1$ (substitution)\\
+	Now consider $(g^{x})^{\frac{p-1}{2}}$\\
+	$g^{\frac{x}{2}(p-1)}$ (using rules of exponents\\
+	$(p-1) \nmid \frac{x}{2}(p-1)$ therefore, $a^{\frac{p-1}{2}} \not\equiv 1$\\
 	\qed
 
 
