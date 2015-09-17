@@ -93,7 +93,7 @@
 
 \thispagestyle{fancy}
 
-\myparab{Collaborators: }  .
+\myparab{Collaborators: None}  .
  
  
 \section*{Answer 1}
@@ -102,7 +102,7 @@
 	Thm: If $x \equiv y$ (mod $p-1$) then for any $a, a^x \equiv a^y$ (mod $p$)\\
 	\newline
 	Proof:  $x = (p-1)k_x + r$ and $y = (p-1)k_y + r$ (by the unique fact about division)\\
-	Therefore, $a^{(p-1)k_x + r} \equiv a^{(p-1)k_y + r}$ (mod $p$) (using substitution)\\
+	Consider, $a^{(p-1)k_x + r} \equiv a^{(p-1)k_y + r}$ (mod $p$) (using substitution)\\
 	$a^{(p-1)k_x + r} \text{ mod } p = a^{(p-1)k_y + r} \text{ mod } p$ (fact about congruency)\\
 	$(a^{(p-1)})^{k_x} \text{ mod } p * a^r \text{ mod } p = (a^{(p-1)})^{k_x} \text{ mod } p * a^r \text{ mod } p$ (property of exponents and proof from HW1 that the order of 'mod' does not matter)\\
 	$1 * a^r \text{ mod } p = 1 * a^r \text{ mod } p$ (by Fermat's little theorm)\\
@@ -120,7 +120,7 @@
 	Therefore, $(p-1) \mid x$ (definition of divides)\\
 	\newline
 	Now, assume $(p-1) \mid x$\\
-	Let $r = x$ (mod $p-1$) (Def'n of 'mod')\\
+	Let $r = x$ mod $(p-1)$ (Def'n of 'mod')\\
 	$r = 0$ (def'n of divides)\\
 	Consider $g^r$ (mod $p$)\\
 	$g^{x \text{ mod } p-1}$ (substitution)\\
@@ -179,7 +179,7 @@
 	Proof: Let's assume there is a generator $g$ such that $g^x \equiv a$\\
 	We know that $x$ must be odd (from proof (d))\\
 	Now consider $(g^{x})^{\frac{p-1}{2}}$\\
-	$g^{\frac{x}{2}(p-1)}$ (using rules of exponents\\
+	$g^{\frac{x}{2}(p-1)}$ (using rules of exponents)\\
 	$(p-1) \nmid \frac{x}{2}(p-1)$ therefore, $a^{\frac{p-1}{2}} \not\equiv 1$\\
 	\qed
 	
@@ -189,22 +189,70 @@
 	Proof: We can rewrite $a$ as $g^{2x}$ (Rules of exponents)\\
 	Now let's rewrite the latter expression:\\
 	$g^{2(x + (p-1)/2)} \equiv g^{2x} * g^{p-1}$ (Rules of exponents)\\
-	This can be rewritten as $g*{2x} * 1$ (by Fermat's Little Theorm)\\
+	This can be rewritten as $g^{2x} * 1$ (by Fermat's Little Theorm)\\
 	Therefore, $a \equiv (g^{x + (p-1)/2})^2$\\
 	\qed
 	\newline
 	Thm: $g^{(p-1)/2} \equiv -1$\\
 	\newline
 	Proof: Consider $(g^{(p-1)/2})^2$\\
-	$g^{p-1} \equiv 1$  (Rules of exponents and Fermat's Little Therom$\\
+	$g^{p-1} \equiv 1$  (Rules of exponents and Fermat's Little Therom)\\
 	Therefore, we know that $g^{(p-1)/2}$ is the square root of 1\\
 	We know that $-g^x \equiv g^{x + (p-1)/2}$ (From the facts stated)\\
-	
+	Let's assign $x = (p-1)/2$\\
+	$-g^{(p-1)/2} \equiv g^{2(p-1)/2}$
+	Therefore, $-g^{(p-1)/2} \equiv 1$ (Fermat's Little Theorm)\\
+	Therefore, $g^{(p-1)/2} \equiv -1$ (Multiplication)\\
+	\qed
+	\newline
+	Thm: If $b$ is non-square, then $b^{(p-1)/2} \equiv 1$\\
+	\newline
+	Proof: Let $g^z \equiv b$\\
+	We know that $z$ is odd (by proof (d))\\
+	We can rewrite this as $g * g^x \equiv b$ where $x$ is an even number\\
+	Let $a \equiv g^x$ be a square (because $x$ is even)
+	Now, consider $(g*a)^{(p-1)/2}$\\
+	$g^{(p-1)/2} * a^{(p-1)/2}$\\
+	We know that $a^{(p-1)/2} \equiv 1$ (From part (e)) and $g^{(p-1)/2} \equiv -1$ (from previous part)\\
+	Therefore, $-1 \equiv b^{(p-1)/2}$\\
+	\qed
 
-
-
+	\item[(g)]
+	Thm: If $p \equiv 4$ (mod 4), and $a$ has a square root, then $a^{(p+1)/4}$ is a square root of $a$\\
+	\newline
+	Proof: The only square mod 4 is 1 ($0^2 \equiv 0, 1^2 \equiv 1, 2^2 \equiv 0, 3^2 \equiv 1)$\\
+	If we do $1^{4/4} \equiv 1$\\
+	$1$ is a square root of 1, therefore the equation works when $p \equiv 3$\\
+	\qed
 
 \end{enumerate}
+
+\section*{Answer 2}
+We know the $\Pr[Win] = f(k)$ if the lottery is played one time\\
+If a player played $p(k)$ times, where $p$ is a polynomial, then $\Pr[Win] = \Pr[Win(1) OR Win(2) OR ... OR Win(k)]$\\
+This can be written as $\Pr[Win] \le \sum_{1}^{k}f(k)$ (Upper bound)\\
+This is also $\Pr[Win] \le k*f(k)$\\
+And because we know that $f(k)$ is negligble in the size of $k$, then we can also say $k*f(k)$ is negligible (Definition of negligible)\\
+Therefore, the upper-bound on the probabily of winning is negligible, therefore the chances of winning are still negligible\\
+
+\section*{Answer 3}
+Thm: If the discrete logarithm problem holds, then given $g^{xy}$ and $g^{y}$, it is hard to computer $x$\\
+\newline
+Proof: First, let's try to isolate $g^x$\\
+To do so, we can take the $g^y$ root of both sides\\
+$(g^{xy})^{1/y} = g^x$\\
+Great! However, in order to get $x$, we solve $\log_g(g^x)$\\
+This means we have to find the discrete log, which we assumed was hard.  Therefore, finding $x$ is a hard problem\\
+\qed
+\newline
+Thm: For any poly-time algorithm $A$, there exists a negligible function $\eta$ such that, if you generate a $k$ bit $p$ and its generator $g$ and select a random $x,y \in \mathbb{Z}_p^*$, $\Pr[A(p,g,g^{xy} \text { mod } p), g^y \text{ mod } p) = x] \le \eta(k)$\\
+\newline
+Proof: Let's assume that there does exist a poly-time algorithm $A$ such that $\Pr[A(p,g,g^{xy} \text { mod } p), g^y \text{ mod } p) = x] > \eta(k)$\\
+This would mean that in poly-time, we have some significant chance of generating $x$ given $p, g, g^{xy} \text{ mod } p, g^y \text{ mod } p$\\
+This would mean that in poly-time, we have some significant chance of solving the discrete log problem (reduction)\\
+However, we assume that the discrete log problem is hard, and in poly-time we cannot get $x$ from $p, g, g^{xy} \text{ mod } p, g^y \text{ mod } p$\\
+We have arrived at a contradiction, therefore such an $A$ does not exist\\
+\qed
 
 
 \noindent\hrulefill
