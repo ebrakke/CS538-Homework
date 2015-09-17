@@ -220,9 +220,12 @@
 	\item[(g)]
 	Thm: If $p \equiv 4$ (mod 4), and $a$ has a square root, then $a^{(p+1)/4}$ is a square root of $a$\\
 	\newline
-	Proof: The only square mod 4 is 1 ($0^2 \equiv 0, 1^2 \equiv 1, 2^2 \equiv 0, 3^2 \equiv 1)$\\
-	If we do $1^{4/4} \equiv 1$\\
-	$1$ is a square root of 1, therefore the equation works when $p \equiv 3$\\
+	Proof: If $p \equiv 3$ then $(p+1)/4 = 2$ which is an integer\\
+	Now, let's consider $(a^{(p+1)/4})^2$\\
+	Rewritten $a^{(p+1)/2}$\\
+	$a * a^{(p-1)/2}$\\
+	Therefore, $(a^{(p+1)/4})^2 \equiv a$ (From part(e) $a^{(p-1)/2} \equiv 1$)\\
+	Therefore, $a^{(p+1)/4}$ is a square root of $a$\\
 	\qed
 
 \end{enumerate}
@@ -248,8 +251,9 @@ This means we have to find the discrete log, which we assumed was hard.  Therefo
 Thm: For any poly-time algorithm $A$, there exists a negligible function $\eta$ such that, if you generate a $k$ bit $p$ and its generator $g$ and select a random $x,y \in \mathbb{Z}_p^*$, $\Pr[A(p,g,g^{xy} \text { mod } p), g^y \text{ mod } p) = x] \le \eta(k)$\\
 \newline
 Proof: Let's assume that there does exist a poly-time algorithm $A$ such that $\Pr[A(p,g,g^{xy} \text { mod } p), g^y \text{ mod } p) = x] > \eta(k)$\\
-This would mean that in poly-time, we have some significant chance of generating $x$ given $p, g, g^{xy} \text{ mod } p, g^y \text{ mod } p$\\
-This would mean that in poly-time, we have some significant chance of solving the discrete log problem (reduction)\\
+Now, let's use algorithm $A$ to solve the discrete log problem\\
+If we give $A(p, g, g^{xy} \text { mod } p, g^y \text{ mod } p)$, then there is a non-negligible chance that $A$ will output $x$\\
+And because we have assumed that $A$ is a poly-time algorithm, this means that the discrete log problem can be solved in poly time\\
 However, we assume that the discrete log problem is hard, and in poly-time we cannot get $x$ from $p, g, g^{xy} \text{ mod } p, g^y \text{ mod } p$\\
 We have arrived at a contradiction, therefore such an $A$ does not exist\\
 \qed

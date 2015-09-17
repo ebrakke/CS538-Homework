@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.6)  17 SEP 2015 08:22
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.6)  17 SEP 2015 11:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -317,12 +317,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 187--219
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 221--227
+Underfull \hbox (badness 10000) in paragraph at lines 221--230
 
  []
 
 
-Overfull \hbox (46.60971pt too wide) in paragraph at lines 231--237
+Overfull \hbox (46.60971pt too wide) in paragraph at lines 234--240
 \OT1/cmr/m/n/10.95 If a player played $\OML/cmm/m/it/10.95 p\OT1/cmr/m/n/10.95 
 (\OML/cmm/m/it/10.95 k\OT1/cmr/m/n/10.95 )$ times, where $\OML/cmm/m/it/10.95 p
 $ \OT1/cmr/m/n/10.95 is a poly-no-mial, then $[][\OML/cmm/m/it/10.95 Win\OT1/cm
@@ -332,22 +332,22 @@ r/m/n/10.95 ] = [][\OML/cmm/m/it/10.95 Win\OT1/cmr/m/n/10.95 (1)\OML/cmm/m/it/1
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 231--237
+Underfull \hbox (badness 10000) in paragraph at lines 234--240
+
+ []
+
+[3]
+Underfull \hbox (badness 10000) in paragraph at lines 242--260
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 239--256
+Underfull \hbox (badness 10000) in paragraph at lines 242--260
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 239--256
-
- []
-
-
-Overfull \hbox (51.6956pt too wide) in paragraph at lines 239--256
+Overfull \hbox (51.6956pt too wide) in paragraph at lines 242--260
 \OT1/cmr/m/n/10.95 Proof: Let's as-sume that there does ex-ist a poly-time al-g
 o-rithm $\OML/cmm/m/it/10.95 A$ \OT1/cmr/m/n/10.95 such that $[][\OML/cmm/m/it/
 10.95 A\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 p; g; g[][]p\OT1/cmr/m/n/10.95 )
@@ -355,13 +355,6 @@ o-rithm $\OML/cmm/m/it/10.95 A$ \OT1/cmr/m/n/10.95 such that $[][\OML/cmm/m/it/
  []
 
 
-Overfull \hbox (67.50458pt too wide) in paragraph at lines 239--256
-\OT1/cmr/m/n/10.95 This would mean that in poly-time, we have some sig-nif-i-ca
-nt chance of gen-er-at-ing $\OML/cmm/m/it/10.95 x$ \OT1/cmr/m/n/10.95 given $\O
-ML/cmm/m/it/10.95 p; g; g[][]p; g[][]p$ 
- []
-
-[3] 
 AED: lastpage setting LastPage
 [4] (./HW2.aux) ) 
 Here is how much of TeX's memory you used:
@@ -387,7 +380,7 @@ amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb>
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/s
 hare/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on HW2.pdf (4 pages, 161247 bytes).
+Output written on HW2.pdf (4 pages, 161417 bytes).
 PDF statistics:
  81 PDF objects out of 1000 (max. 8388607)
  58 compressed objects within 1 object stream
