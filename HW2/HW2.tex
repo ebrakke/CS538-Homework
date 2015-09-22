@@ -239,23 +239,23 @@ And because we know that $f(k)$ is negligble in the size of $k$, then we can als
 Therefore, the upper-bound on the probabily of winning is negligible, therefore the chances of winning are still negligible\\
 
 \section*{Answer 3}
-Thm: If the discrete logarithm problem holds, then given $g^{xy}$ and $g^{y}$, it is hard to computer $x$\\
+Thm: If the discrete logarithm problem holds, then given $g^{xy}$ and $g^{y}$, it is hard to compute $x$\\
 \newline
-Proof: First, let's try to isolate $g^x$\\
-To do so, we can take the $g^y$ root of both sides\\
-$(g^{xy})^{1/y} = g^x$\\
-Great! However, in order to get $x$, we solve $\log_g(g^x)$\\
-This means we have to find the discrete log, which we assumed was hard.  Therefore, finding $x$ is a hard problem\\
+Proof: $g^{xy} = (g^y)^x$\\
+We can find $x$ by $log_{g^y}(g^xy)$\\
+This is the discrete logarithm problem.  So it is hard to compute $x$\\
 \qed
 \newline
 Thm: For any poly-time algorithm $A$, there exists a negligible function $\eta$ such that, if you generate a $k$ bit $p$ and its generator $g$ and select a random $x,y \in \mathbb{Z}_p^*$, $\Pr[A(p,g,g^{xy} \text { mod } p), g^y \text{ mod } p) = x] \le \eta(k)$\\
 \newline
 Proof: Let's assume that there does exist a poly-time algorithm $A$ such that $\Pr[A(p,g,g^{xy} \text { mod } p), g^y \text{ mod } p) = x] > \eta(k)$\\
-Now, let's use algorithm $A$ to solve the discrete log problem\\
-If we give $A(p, g, g^{xy} \text { mod } p, g^y \text{ mod } p)$, then there is a non-negligible chance that $A$ will output $x$\\
-And because we have assumed that $A$ is a poly-time algorithm, this means that the discrete log problem can be solved in poly time\\
-However, we assume that the discrete log problem is hard, and in poly-time we cannot get $x$ from $p, g, g^{xy} \text{ mod } p, g^y \text{ mod } p$\\
-We have arrived at a contradiction, therefore such an $A$ does not exist\\
+Let's have another algorithm $D(p, g^{xy}, g^{y}) = x$ that uses $A$ to solve the discrete log problem\\
+If we generate a random $g \in \{1,2,...,p-1\}$, then we can pass $p,g^{xy}, g^y, g$ along to $A$ to solve for x\\
+$\Pr[A(p,g,g^{xy},g^y) = x | g \text{ was correctly guessed }] = f(x)$ Where $f$ is some non-negligible function\\
+$\Pr[A(p,g,g^{xy},g^y) = x | g \text{ was guessed incorrectly}] = \frac{1}{p} * \frac{p-1}{p}$\\
+Therefore, the event that $x$ is guessed correctly is $f(x) +  \frac{1}{p} * \frac{p-1}{p}$\\
+This is a greater than negligible chance that $x$ is correct, meaning that $D$ can solve for $x$ with greater than negligible change\\
+This is a contradiction because $D$ is hard to do in poly time.  Therefore, $A$ is correct with less than negligible change\\
 \qed
 
 
