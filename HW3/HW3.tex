@@ -1,0 +1,137 @@
+\documentclass[11pt]{article}
+\usepackage{amssymb,amsmath,amsthm,url,graphicx}
+\usepackage{fancyhdr}
+
+\def\shownotes{1}   % set 1 for version with author notes
+                    % set 0 for no notes
+
+
+
+%uncomment to get hyperlinks
+%\usepackage{hyperref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Some macros (you can ignore everything until "end of macros")
+
+\topmargin 0pt \advance \topmargin by -\headheight \advance
+\topmargin by -\headsep
+
+\textheight 8.9in
+
+\oddsidemargin 0pt \evensidemargin \oddsidemargin \marginparwidth
+0.5in
+
+\textwidth 6.5in
+
+%%%%%%
+
+\providecommand{\vs}{vs. }
+\providecommand{\ie}{\emph{i.e.,} }
+\providecommand{\eg}{\emph{e.g.,} }
+\providecommand{\cf}{\emph{cf.,} }
+\providecommand{\etc}{\emph{etc.} }
+
+\newcommand{\getsr}{\gets_{\mbox{\tiny R}}}
+\newcommand{\bits}{\{0,1\}}
+\newcommand{\bit}{\{0,1\}}
+\newcommand{\Ex}{\mathbb{E}}
+\newcommand{\eqdef}{\stackrel{def}{=}}
+\newcommand{\To}{\rightarrow}
+\newcommand{\e}{\epsilon}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Gen}{\mathsf{Gen}}
+\newcommand{\Enc}{\mathsf{Enc}}
+\newcommand{\Dec}{\mathsf{Dec}}
+\newcommand{\Sign}{\mathsf{Sign}}
+\newcommand{\Ver}{\mathsf{Ver}}
+
+\providecommand{\mypara}[1]{\smallskip\noindent\emph{#1} }
+\providecommand{\myparab}[1]{\smallskip\noindent\textbf{#1} }
+\providecommand{\myparasc}[1]{\smallskip\noindent\textsc{#1} }
+\providecommand{\para}{\smallskip\noindent}
+
+
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem{ex}{Exercise}
+\newtheorem{definition}{Definition}
+
+%%%%%%%  Author Notes %%%%%%%d
+%
+\ifnum\shownotes=1
+\newcommand{\authnote}[2]{{ $\ll$\textsf{\footnotesize #1 notes: #2}$\gg$}}
+\else
+\newcommand{\authnote}[2]{}
+\fi
+\newcommand{\Snote}[1]{{\authnote{Solution}{#1}}}
+\newcommand{\Inote}[1]{{\authnote{Solution}{#1}}}
+\newcommand{\Ichanged}[1]{{\authnote{Changed}{#1}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\VAR}{\mathrm{VAR}}
+
+
+
+% end of macros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% page counting, header/footer
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\lhead{\footnotesize \parbox{11cm}{CS538, Boston University, Fall 2015} }
+\rhead{Erik Brakke}
+\renewcommand{\headheight}{24pt}
+
+\begin{document}
+
+\title{Homework 3}
+\author{Erik Brakke}
+\maketitle
+
+\thispagestyle{fancy}
+
+\myparab{Collaborators: }  .
+ 
+ 
+\section*{Answer 1}
+$G'$ is not a pseudo random generator.\\
+Proof: Assume that $G'$ is a pseudo random generator.\\
+This means that it is Next Bit Unpredictable (Def'n of a PRG)\\
+In other words, there exists an algorithm $A$ such that $\Pr[A(b_0...b_i) = b_{i+1}] > 1/2 + n(x)$\\
+However, such an algorithm for $A$ exists such that $\Pr[A(b_0...b_i) = b_{i+1}] = 1$\\
+Assume we have a seed $s$ of length $L$.  $G(s)'$ is then computed\\
+$A$ gets $b_0$.  It knows this is the xor of all the bits in $w$\\
+$A$ then asks for bits $b_1...b_{L-1}$ and xors them all together to get some bit $x$\\
+If $x = b_0 = 0$ then $b_L = 1$, if $x = b_0 = 1$ then $b_L = 0$,if $x != b_0$ then $b_L = \neg b_{L-1}$\\
+Because $A$ runs in poly time and can always predict the last bit, $G'$ is not next bit unpredictable and is therefore not a PRG\\
+\qed
+
+\section*{Answer 2}
+\begin{enumerate}
+	\item[(a)]
+	Proof: Assume that $\bar{G}$ is not a pseudo random generator\\
+	This means that there exists an efficent algorithm $A$ such that $\Pr[A(\bar{G}(s) = \text{ PRG })] - \Pr[A(R(s)) = \text{ PRG }] = f(x)$ Where $R(s)$ is a truely random output and $f$ is non-negligible  (Def'n of indistinguishability of PRG)\\
+	We can use $A$ to then detect whether or not $G(s)$ is random or not.\\
+	Negate every bit of $G(s)$ and feed it to $A$.\\
+	If $A(\neg G(s)) =$ PRG, then we can say with a non-negligible probability that $G(s)$ is a PRG, and likewise if $A$ outputs 'random'.\\
+	However, we assumed that $G$ was a PRG, therefore we should not have an algorithm that can be run in poly-time that will distinguish its output from random\\
+	Therefore, we have a contradiction and $\bar{G}$ is a PRG\\
+	\qed
+
+	\item[(b)]
+	
+
+
+
+
+\noindent\hrulefill
+
+
+\section*{References}
+
+None
+
+\end{document} 
