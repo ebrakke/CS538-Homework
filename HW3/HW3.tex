@@ -122,6 +122,17 @@ Because $A$ runs in poly time and can always predict the last bit, $G'$ is not n
 	\qed
 
 	\item[(b)]
+\end{enumerate}
+
+\section*{Answer 3}
+\begin{enumerate}
+	\item[(a)]
+	We want to find which $s1,s2$ is equivalent to $g^{x/2} (The principle root)\\
+	Becuase we know that $g^x < p$ we can also say that $g^{x/2} < p/2$\\
+	We know that one of $s_1,s_2$ is the principle root, so if $D(s_1) = 1$ then output $s_1$ else output $s_2$\\
+	$\Pr[D(s_1) = s_1 | s_1 \text{ is the principle bit}] = 1/2 + \epsilon$\\
+	Therefore with non-negligible probability, we can use $D$ to which roo is the principle root\\
+\end{enumerate}
 	
 
 
