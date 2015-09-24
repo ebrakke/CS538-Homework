@@ -93,7 +93,7 @@
 
 \thispagestyle{fancy}
 
-\myparab{Collaborators: }  .
+\myparab{Collaborators: } Alison Kendler, Kyle Hogan, Issac Cohen
  
  
 \section*{Answer 1}
@@ -122,20 +122,60 @@ Because $A$ runs in poly time and can always predict the last bit, $G'$ is not n
 	\qed
 
 	\item[(b)]
+	Proof: Let's assume that $G_2$ negates every bit of $G_1$\\ We know that these are both pseudo random generators by the proof in part (a)\\
+	However, Once $G_3$ is run, it becomes obvious that the second half of the message is just the flipped bits of the first half.\\
+	We can design an algorithm $A(G(s))$ such that it can split the message in half and xor all of the bits.  $A$ outputs $k$ 1s, where $k$ is the length of the seed, then $A$ knows that $G(s)$ is pseudo random.  This is a polynomial time alogrithm, and will always be right if $G_2$ is just the negation of $G_1$\\
+	\qed
 \end{enumerate}
 
 \section*{Answer 3}
 \begin{enumerate}
 	\item[(a)]
-	We want to find which $s1,s2$ is equivalent to $g^{x/2} (The principle root)\\
+	We want to find which $s1,s2$ is equivalent to $g^{x/2}$ (The principle root)\\
 	Becuase we know that $g^x < p$ we can also say that $g^{x/2} < p/2$\\
 	We know that one of $s_1,s_2$ is the principle root, so if $D(s_1) = 1$ then output $s_1$ else output $s_2$\\
-	$\Pr[D(s_1) = s_1 | s_1 \text{ is the principle bit}] = 1/2 + \epsilon$\\
-	Therefore with non-negligible probability, we can use $D$ to which roo is the principle root\\
+	$\Pr_y[D(s_1) = s_1 | s_1 \text{ is the principle bit}] = 1/2 + \epsilon$\\
+	Therefore with non-negligible probability, we can use $D$ to which root is the principle root\\
+
+	\item[(b)]
+	Proof: We want to show that $\Pr[\text{Principle root of z} \neq \text{Principle root of y} * g^r] \le \frac{1}{t}$\\
+	We know $z \equiv yg^{2r}$, $y \equiv g^x$\\
+	$z \equiv g^{x + 2r}$\\
+	So we want to show when $g^{(x + 2r)/2} \neq g^{x/2} * g^r$\\
+	This will be the case when $(x + 2r)/2 \neq x/2 + r$\\
+	We know that $1 \le x \le (p-1)/t$ and is even and $1 \le r \le (p-1)/2$, so $x/2 \le (p-1)/2t$ and $r \le (p-1)/2$\\
+	However, $x + 2r$ can be $> (p-1)$.  If this is the case, then $(x + 2r)/2$ will no longer actually be equal to $(x/2) + r$.\\
+	This is the case when $g^{(x + 2r)/2} \neq g^{x/2} * g^r$\\
+	So we can reduce our problem to $\Pr[x + 2r < (p-1)]$\\
+	Let's consider the worst case, where $x = (p-1)/t$\\
+	$\Pr[(p-1)/t + 2r > (p-1)] = \Pr[r > (p-1)/2 - (p-1)/2t]$\\
+	$1 - \frac{(p-1)/2 - (p-1)/2t}{(p-1)/2}$ (by using counting principles)\\
+	$1 - (1 - 1/t) = 1/t$\\
+	Therefore, $\Pr_r[\text{Principle(z)} \neq \text{Principle(y) * g^r}] \le 1/t$
+
+	\item[(c)]
+	Proof: We know that we have an algorithm $D(s_1,s_2,p,g,y) -> \text{Princple square root}$ with probability $1/2 + \episolon$ (Part (a))\\
+	We also know that $\Pr[Principle(z) \neq Principle(y) * g^r] \le 1/t$\\
+	Using this information we can construct an algorithm $A$ that gives us the principle square root of $y$ with non-negligible probability\\
+	We can now try to make sure that $y$ is distributed uniformly in $(p-1)$ by taking some random bit $r$ such that $1 \le r \le (p-1)/2$ and taking $yg^{2r} = z$ (From the previous part)\\
+	We can split $y$ into it's two roots efficiently (given in the problem)\\
+	We can then run $D$ on one of the roots of $y$ to see which one the princple square root is.\\
+	So now we have that $Principle(z) = D(y) * g^r$\\
+	This is right with $\Pr = 1/2 + \epsilon - 1/t$ because we have a $1/2 + \epsilon$ chance that $D(y)$ is correct, and we know that there is only a $1\t$ chance that the principle square root of $z$ is not equal to the principle square root of $y * g^r$ (from part (b))\\
+	Therefore, We can use $D$ to find the principle square root of $y$ with $\Pr = 1/2 + \epsilon - 1/t$\\
+	\qed
+
+	\item[(d)]
+	Using Heoffding's bound, we want to bound the probability that the majority vote is wrong\\
+	We have our algorithm $A$ that will find the principle square root of any $y$ in $t-IS$ with probability $1/2 + \epsilon - 1/t$\\
+	Therefore we want to show the bound of $\Pr[E[A_n] - Actual[A] \ge \epsilon - 1/t]$\\
+	We can use the Hoeffding's to show that this is $\le e^{-2(\epsilon - 1/t)^2n}$\\
+	This is an exponentially small number, and as we run many trials, this number becomes negligible\\
+	Therefore, The probability that we don't find the principle square root of $y$ in $t-IS$ using $A$ after many trials is negligible\\
+
+
+
 \end{enumerate}
-	
-
-
 
 
 \noindent\hrulefill
