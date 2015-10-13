@@ -1,0 +1,218 @@
+\documentclass[11pt]{article}
+\usepackage{amssymb,amsmath,amsthm,url,graphicx}
+\usepackage{fancyhdr}
+
+\def\shownotes{1}   % set 1 for version with author notes
+                    % set 0 for no notes
+
+
+
+%uncomment to get hyperlinks
+%\usepackage{hyperref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Some macros (you can ignore everything until "end of macros")
+
+\topmargin 0pt \advance \topmargin by -\headheight \advance
+\topmargin by -\headsep
+
+\textheight 8.9in
+
+\oddsidemargin 0pt \evensidemargin \oddsidemargin \marginparwidth
+0.5in
+
+\textwidth 6.5in
+
+%%%%%%
+
+\providecommand{\vs}{vs. }
+\providecommand{\ie}{\emph{i.e.,} }
+\providecommand{\eg}{\emph{e.g.,} }
+\providecommand{\cf}{\emph{cf.,} }
+\providecommand{\etc}{\emph{etc.} }
+
+\newcommand{\getsr}{\gets_{\mbox{\tiny R}}}
+\newcommand{\bits}{\{0,1\}}
+\newcommand{\bit}{\{0,1\}}
+\newcommand{\Ex}{\mathbb{E}}
+\newcommand{\eqdef}{\stackrel{def}{=}}
+\newcommand{\To}{\rightarrow}
+\newcommand{\e}{\epsilon}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Gen}{\mathsf{Gen}}
+\newcommand{\Enc}{\mathsf{Enc}}
+\newcommand{\Dec}{\mathsf{Dec}}
+\newcommand{\Sign}{\mathsf{Sign}}
+\newcommand{\Ver}{\mathsf{Ver}}
+
+\providecommand{\mypara}[1]{\smallskip\noindent\emph{#1} }
+\providecommand{\myparab}[1]{\smallskip\noindent\textbf{#1} }
+\providecommand{\myparasc}[1]{\smallskip\noindent\textsc{#1} }
+\providecommand{\para}{\smallskip\noindent}
+
+
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem{ex}{Exercise}
+\newtheorem{definition}{Definition}
+
+%%%%%%%  Author Notes %%%%%%%d
+%
+\ifnum\shownotes=1
+\newcommand{\authnote}[2]{{ $\ll$\textsf{\footnotesize #1 notes: #2}$\gg$}}
+\else
+\newcommand{\authnote}[2]{}
+\fi
+\newcommand{\Snote}[1]{{\authnote{Solution}{#1}}}
+\newcommand{\Inote}[1]{{\authnote{Solution}{#1}}}
+\newcommand{\Ichanged}[1]{{\authnote{Changed}{#1}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\VAR}{\mathrm{VAR}}
+
+
+
+% end of macros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% page counting, header/footer
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\lhead{\footnotesize \parbox{11cm}{CS538, Boston University, Fall 2015} }
+\rhead{Erik Brakke}
+\renewcommand{\headheight}{24pt}
+
+\begin{document}
+
+\title{Homework 4}
+\author{Erik Brakke}
+\maketitle
+
+\thispagestyle{fancy}
+
+\myparab{Collaborators: }  Kyle Hogan.
+ 
+ 
+\section*{Answer 1}
+
+Proof: Supposed $G_3$ was not a PRG\\
+This means that we have some distinguisher $D$ that can tell $G_3(s)$ from random\\
+We know that $G_3 = G_1(s_1) \circ G_2(s_2)$\\
+Therefore, $\Pr[D(G_1(s_1) \circ G_2(s_2)) = PRG] > 1/2 + \epsilon$ Where epsilon is non negligible\\
+We also know that $\Pr[D(random) = random] > 1/2 + \epsilon$\\
+We can now give $D$ just the input of $G_1$ or $G_2$ concatinatied with random bits\\
+There must be some point between $D(random)$ and $D(G_3(s_3))$ Where $D$ will be able to tell random from PR\\
+Let's split the input of $D$ by $G_1$ and $G_2$\\
+So $D(G_1(s_1) \circ random)$ or $D(random \circ G_2(s_2))$\\
+$\Pr[D(G_1(s_1) \circ random) = PRG] = 1/2 + \epsilon/2$ (because half of the bits are random and half are psuedorandom)\\
+This is the same with using $G_2$\\
+Therefore, given $D$, and $G_3(s))$ we can determine with non-negligible probability whether or not the output of $G_1$ and $G_2$ is psuedorandom\\
+This is a contradiction though because we assumed $G_1$ and $G_2$ were PRGs\\
+Therefore, $G_3$ is a PRG\\
+\qed
+
+\section*{Answer 2}
+\begin{enumerate}
+\item[(a)]
+We know from HW1 that computing $a^b$ mod $c$ will take $(n-1) + \frac{n-1}{2}$ multiplications  where $n$ is the number of bits for $a,b$ and half of $b$ bits are 1.  We know that $c$ and $d$ are both $2k$ bits, so in total we will have $3k$ multiplications to perform.  We know that each multiplication takes $4k^2$ bits, so in total, computing $c^d$ mod $n$ will take $12k^3$
+
+\item[(b)]
+To compute $c_1^{d_1}$ mod $p_1$\\
+$c_1$ is $k$ bits, $d_1$ is $k$ bits, so we have $k + \frac{k}{2}$ multiplications.  With each multiplication taking $k^2$ this will take $\frac{3}{2}k^3$\\
+\newline
+$m = m_1 \text{ mod } p_1$\\
+$m = m_2 \text{ mod } p_2$\\
+Now we can choose an $m_x, m_y$ such that:\\
+$m_x = m_1 \text{ mod } p_1$\\
+$m_x = 0 \text{ mod } p_2$\\
+$m_y = m_2 \text{ mod } p_2$\\
+$m_y = 0 \text{ mod } p_1$\\
+Solving this will be a solution for $m$ because $m_x + m_y = m_1 + 0 \text{ mod } p_1$ and $m_x + m_y = m_2 + 0 \text{ mod } p_2$\\
+$m_x + m_y = m_1 \text{ mod } p_1, m_x + m_y = m_2 \text{ mod } p_2$ Which is what were originally solving\\
+By writing it this way, we know that $m_x$ is a multiple of $p_2$ and that $m_y$ is a multiple of $p_1$\\
+$m_x = m_1 * p_2 * p_2^{-1} \text{ mod } p_1p_2$\\
+$m_y = m_2 * p_1 * p_1^{-1} \text{ mod } p_1p_2$\\
+$m = m_1 * p_2 * q_2 + m_2 * p_1 * q_1 \text{ mod } p_1p_2$
+
+
+We can split this problem up into:\\
+$m = c_1^{d_1} \text{ mod } p_1$\\
+$m = c_2^{d_2} \text{ mod } p_2$\\
+Now, we just want to know $m = ( c_1^{d_1} ) + (c_2^{d_2}) \text{ mod } p_1p_2$\\
+
+
+The runtime of this will just be double that of what we solved for in the first part of $2(b)$.  Therefore using CRT, it will run in $3k^3$ which is $\frac{1}{4}$ of the time.\\
+
+\item[(c)]
+Proof: We want to prove that the value $m_2 + hp_2$ is equivalent to $m_1$ (mod $p_1$) and equivalent to $m_2$ (mod $p_2$) and is in the range $0...n-1$.  If we can prove all of these, then we can say this value is unique in $n$ and that value is $m$\\
+First working mod $p_1$:\\
+$m_2 + hp_2$\\
+$m_2 + (m_1-m_2)q_2p_2$\\
+$m_2 + m_1 - m_2$ (Because $q_2$ is the multiplicative inverse of $p_2$ in $p_1$\\
+$m_1$ So we know that this is in fact equivalent to $m_1$\\
+\newline
+Now working mod $p_2$\\
+$m_2 + (m_1-m_2)q_2p_2$\
+$m_2$ (Because the second term is a multiple of $p_2$\\
+So we know that this is in fact equivalent to $m_2$\\
+\newline
+Because $h$ is mod $p_1$, we know that $h$ must be in the range $0...p_1-1$\\
+We also know that $m_2$ is in the range $0...p_2-1$\\
+We also know that $n = p_1p_2$.\\
+In the worst case, $h$ could be $(p_1-1)$ and $m_2 = (p_2-1)$\\
+$(p_2-1) + (p_1-1)p_2$\\
+$p_1p_2 - 1$\\
+Therefore, $m_2 + hp_2$ is between $0...n-1$
+We have show that $m_2 + hp_2$ is unique in $0...n-1$ and that it is equivalent to $m_1$ and $m_2$, therefore $m_2 + hp_2$ is $m$\\
+\qed
+\end{enumerate}
+
+\section*{Answer 3}
+\begin{enumerate}
+\item[(a)]
+Proof: Because $p_1 \equiv 3 (mod 4)$ then $p_1 + 1$ is divisible by 4\
+This means that $u_1$ is divisible by 4\\
+This means that $u_1$ is even\\
+We proved in Homework 2 that any number mod a prime with an even exponent is a square mod p\\
+$t = s^{u_1} \text{ mod } p_1$\\
+Therefore, $t$ is a square\\
+\qed
+
+\item[(b)]
+Proof by induction: $2^l$-th root of s is equal to $s^{u_1^l}$\\
+Base case: $l = 1$\\
+$s^{1/2} \text{ mod } p_1 = s^{\frac{p_1 + 1}{4}}$\\
+This is true, we proved it in HW2\\
+Now let's assume that $s^{(1/2)^l} \text{ mod } p_1 = s^{(\frac{p_1 + 1}{4})^l}$\\
+We will prove that this property still holds in $l+1$\\
+$s^{(1/2)^{l+1}} \text{ mod } p_1 = s^{(\frac{p_1 + 1}{4})^{l+1}}$\\
+$(s^{(1/2)^l})^{1/2} \equiv (s^{(\frac{p_1 + 1}{4})^l})^{\frac{p_1 + 1}{4}}$\\ 
+This is true because $s^{(\frac{p_1 + 1}{4})^l}$ is a square mod $p_1$, and from the proof in HW2, raising this to $\frac{p_1 + 1}{4}$ is the same as taking the square root\\
+There fore the assumption is true\\
+
+Let's assume this wasn't a square mod $p_1$\\
+Then this means that there is some l-th root of $s$ where the $l+1$ root is not a square\\
+We just proved using induction that the l+1-th root has to be a square, otherwise the l+2-th root would not be a square and out induction would have failed\\
+Therefore the squareroot is itself a square modulo $p_1$\\
+\qed
+
+\item[(c)]
+Given $x^{2^l}, u^l_1, u^l_2$ we can compute every $x_l$ mod $P_1$ and $p_2$ by computing $(x^{2^l})^{u^l_{1,2}}$ for every $l$.  This will give us all x's mod each prime.\\
+We can then combine each $x$ using CRT to get all x's mod $p_1p_2$.  Then we can compute each hard-core bit and finally decrypt the message\\
+
+\end{enumerate}
+
+
+
+
+\noindent\hrulefill
+
+
+\section*{References}
+
+http://cs-people.bu.edu/lapets/235-2015-spr/s.php
+
+\end{document} 
