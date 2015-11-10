@@ -103,9 +103,16 @@ That is, $D$ does not have any advantage by seeing $(y,d)$ in choosing $b$\\
 Let's assume this is not the case\\
 Given a $y_b,d_b$ from $m_b$ where $m_b$ is one of $m_0,m_1$ chosen by $D$, $\Pr[\text{D outputs b}|exp-b] = 1/2 + \epsilon$ Where $\epsilon$ is some non-negligible probability\\
 This means that $D$ is able to distinguish $(y_0,d_0)$ from $(y_1,d_1)$ with some non-negligible advantage $\epsilon$\\
-Because $D$ knows $m_0,m_1$, then in order to distinguish, he must know how to distinguish $d_0$ from $d_1$ (because this is the only thing that uses the message)\\
-We know that $d$ is just $p \oplus m$, which means he must know something about $p$\\
-$p = H(r)$, and because this is the only bit of information that will allow $D$ to distinguish the ecryption, then with $\Pr = \epsilon$, $D$ will query $H$ on $r$\\
+Let the event $E$ be the event that $D$ queries $H$ on $r = f^{-1}(y)$
+If $\bar{E}$, then that means $D$ never asked for $H(r)$.\\
+Because $d_0$ is just $p \oplus m$, and $p$ is $H(r)$, $D$ needs to know $H(r)$ to have any kind of advantage on distinguishing\\
+Thus, if $\bar{E}$, then $D$ does not have any advantage on distinguishing regardless of $b$\\
+Because he has no advantage, then $Pr[\text{Guessing correctly} | \bar{E}] = 1/2$
+If we let $S$ be the event that $D$ guesses $b$ correctly, we have $\Pr[S] = \Pr[S|E]\Pr[E] + \Pr[S|\bar{E}]\Pr[\bar{E}]$\\
+We know that $Pr[S] = 1/2 + \epsilon$\\
+$1/2 + \epsilon = \Pr[S|E]\Pr[E] + 1/2(1 - \Pr[E])$\\
+$1/2 + \epsilon = \Pr[E] + 1/2 - \Pr[E]/2$ (Because if $E$, then $D$ will distinguish)\\
+$2*\epsilon \le \Pr[E]$
 
 	\item[(b)] Let's use $D$ to build a function $R$ that can reverse the OWF $f$\\
 We will give $R$ the inputs $PK, y$ and will expect that $R$ can use $D$ to output $f^{-1}(y)$ with non-negligible probability\\
@@ -131,13 +138,15 @@ This is a contradiction, because we assumed $f$ was a OWF, therefore this encryp
 
 \section*{Answer 2}
 Given a random oracle $H$ we can construct another random oracle $H'$ to hash to arbitrary lengths by doing the following:\\
-If $n < l$:\\
-$H(s) = h$, then run $H(h || s_1..s_n) = h'$.  If $n > |s|$, then just pad $s$\\
-Return $h'_1...h'_n$
-\newline
-If $n > l$:\\
-
-
+$h_1 = H(n || s)$\\
+$h_2 = H(n || h_1)$\\
+...\\
+$h_i = H(n || h_{i-1})$\\
+Then you have $h = h_1||h_2||...||h_i$ and output $n$ bits $h_1...h_n$\\
+In this case $i = \lceil n/l \rceil$\\
+The outputs will always be independent of eachother because either $s$ will be different or $n$ will be different  between two pains $(n,s)$\\
+Because we take $H(n||s)$ first, we are guarenteed that this will be unique (i.e. no collisions with greater than negligible probability)\\
+This means that $h_2...h_i$ will also be unique, so concatonating them together will give us indepent outputs
 
 \noindent\hrulefill
 

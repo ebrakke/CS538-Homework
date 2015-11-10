@@ -1,6 +1,9 @@
+from math import floor
 from hashlib import sha1
 def arb_hash(n, s):
-    h = sha1(s).hexdigest()
-    if(n > len(s)):
-        s = s + '0'*(n - len(s))
-    return sha1(h + s).hexdigest()[:n]
+    i = floor(n/40.0)
+    h = sha1(str(n) + s).hexdigest()
+    for x in range(int(i)):
+        h_prime = sha1(str(n) + h).hexdigest()
+        h = h + h_prime
+    return h[:n]
