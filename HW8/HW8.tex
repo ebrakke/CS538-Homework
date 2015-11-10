@@ -1,0 +1,149 @@
+\documentclass[11pt]{article}
+\usepackage{amssymb,amsmath,amsthm,graphicx}
+\usepackage{fancyhdr}
+
+\def\shownotes{1}   % set 1 for version with author notes
+                    % set 0 for no notes
+
+
+
+%uncomment to get hyperlinks
+%\usepackage{hyperref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Some macros (you can ignore everything until "end of macros")
+
+\topmargin 0pt \advance \topmargin by -\headheight \advance
+\topmargin by -\headsep
+
+\textheight 8.9in
+
+\oddsidemargin 0pt \evensidemargin \oddsidemargin \marginparwidth
+0.5in
+
+\textwidth 6.5in
+
+%%%%%%
+
+\providecommand{\vs}{vs. }
+\providecommand{\ie}{\emph{i.e.,} }
+\providecommand{\eg}{\emph{e.g.,} }
+\providecommand{\cf}{\emph{cf.,} }
+\providecommand{\etc}{\emph{etc.} }
+
+\newcommand{\getsr}{\gets_{\mbox{\tiny R}}}
+\newcommand{\bits}{\{0,1\}}
+\newcommand{\bit}{\{0,1\}}
+\newcommand{\Ex}{\mathbb{E}}
+\newcommand{\eqdef}{\stackrel{def}{=}}
+\newcommand{\To}{\rightarrow}
+\newcommand{\e}{\epsilon}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Gen}{\mathsf{Gen}}
+\newcommand{\Enc}{\mathsf{Enc}}
+\newcommand{\Dec}{\mathsf{Dec}}
+\newcommand{\Sign}{\mathsf{Sign}}
+\newcommand{\Ver}{\mathsf{Ver}}
+
+\providecommand{\mypara}[1]{\smallskip\noindent\emph{#1} }
+\providecommand{\myparab}[1]{\smallskip\noindent\textbf{#1} }
+\providecommand{\myparasc}[1]{\smallskip\noindent\textsc{#1} }
+\providecommand{\para}{\smallskip\noindent}
+
+
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem{ex}{Exercise}
+\newtheorem{definition}{Definition}
+
+%%%%%%%  Author Notes %%%%%%%d
+%
+\ifnum\shownotes=1
+\newcommand{\authnote}[2]{{ $\ll$\textsf{\footnotesize #1 notes: #2}$\gg$}}
+\else
+\newcommand{\authnote}[2]{}
+\fi
+\newcommand{\Snote}[1]{{\authnote{Solution}{#1}}}
+\newcommand{\Inote}[1]{{\authnote{Solution}{#1}}}
+\newcommand{\Ichanged}[1]{{\authnote{Changed}{#1}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\VAR}{\mathrm{VAR}}
+
+
+
+% end of macros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% page counting, header/footer
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{\footnotesize \parbox{11cm}{CS538, Boston University, Fall 2015} }
+\rhead{Erik Brakke}
+\renewcommand{\headheight}{24pt}
+
+\begin{document}
+
+\title{Homework 8}
+\author{Erik Brakke}
+\maketitle
+
+\thispagestyle{fancy}
+
+\myparab{Collaborators: }
+ 
+ 
+\section*{Answer 1}
+\begin{enumerate}
+	\item[(a)] First, let's assume we have an experiment where $D$ sends two messages $m_0,m_1$ and gets back an encryption of one of these messages where $b$ is chosen at random.  $b$ is the message that is encrypted.\\
+We know that $\Pr[\text{D outputs b} | exp-b] = 1/2 + neg$\\
+That is, $D$ does not have any advantage by seeing $(y,d)$ in choosing $b$\\
+Let's assume this is not the case\\
+Given a $y_b,d_b$ from $m_b$ where $m_b$ is one of $m_0,m_1$ chosen by $D$, $\Pr[\text{D outputs b}|exp-b] = 1/2 + \epsilon$ Where $\epsilon$ is some non-negligible probability\\
+This means that $D$ is able to distinguish $(y_0,d_0)$ from $(y_1,d_1)$ with some non-negligible advantage $\epsilon$\\
+Because $D$ knows $m_0,m_1$, then in order to distinguish, he must know how to distinguish $d_0$ from $d_1$ (because this is the only thing that uses the message)\\
+We know that $d$ is just $p \oplus m$, which means he must know something about $p$\\
+$p = H(r)$, and because this is the only bit of information that will allow $D$ to distinguish the ecryption, then with $\Pr = \epsilon$, $D$ will query $H$ on $r$\\
+
+	\item[(b)] Let's use $D$ to build a function $R$ that can reverse the OWF $f$\\
+We will give $R$ the inputs $PK, y$ and will expect that $R$ can use $D$ to output $f^{-1}(y)$ with non-negligible probability\\
+$F$ will then ask $q_{hash}$ queries to $H$ and $q_{enc}$ queries to $Enc(m)$ and distinguish between them\\
+We can assume that $F$ will query $H$ for $H(a_j)$ before asking for $Enc(m_j)$ because without the hash information, he cannot tell anything about the response he will get\\
+We can also assume that before generating $m_0,m_1$ $F$ will ask $H$ for the hash of two number $r_0,r_1 \in D_i$ because $F$ will need this info to distinguish the output of $Enc$\\
+$R$ must create $H(a_j)$ as such:\\
+If $a_j$ has been queried before, then output the same value $s_j$.  If not then output a random $s \in D_i$ and store the value\\
+$R$ must create $Enc(m_j)$ in the following way:\\
+Find $a_j, s_j$ and output $(f_i(a_j), s_j \oplus m_j)$ where $f$ is the OWF\\
+When $D$ is ready to guess, he will send $Enc(m_0)$ and $Enc(m_1)$\\
+$R$ will return $(y, H(r_0) \oplus m_0)$\\
+If $D$ returns $0$, then $R$ can output $r_0$ as the inverse of $y$, else abort\\
+This gives $R$ a probability of $\epsilon$ chance of inverting $y$\\
+This is because we know that there is a non-negligible chance that $D$ has to ask $H(r)$ where $r = f^{-1}(y)$\\
+Therefore, if we choose $m_0$ to be the message we encrypt and send $y$ to $D$ along with $H(r) \oplus m_0$, and $F$ says that this message is $m_0$, then that means that $D$ was able to distinguish this because $r$ was chosen correctly.\\
+We know that $D$ has a probability of $\epsilon$ of asking for $r$ by the previous part\\
+And now we have a 1/2 chance of choosing the correct $m$ to encrypt.  Therefore $R$ has an $\epsilon / 2$ chance of reverting $f$, which is non-negligible\\
+This is a contradiction, because we assumed $f$ was a OWF, therefore this encryption scheme is polynomially secure\\
+\qed
+
+\end{enumerate}
+
+\section*{Answer 2}
+Given a random oracle $H$ we can construct another random oracle $H'$ to hash to arbitrary lengths by doing the following:\\
+If $n < l$:\\
+$H(s) = h$, then run $H(h || s_1..s_n) = h'$.  If $n > |s|$, then just pad $s$\\
+Return $h'_1...h'_n$
+\newline
+If $n > l$:\\
+
+
+
+\noindent\hrulefill
+
+
+\section*{References}
+
+None
+
+\end{document} 

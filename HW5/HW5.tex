@@ -1,0 +1,151 @@
+\documentclass[11pt]{article}
+\usepackage{amssymb,amsmath,amsthm,graphicx}
+\usepackage{fancyhdr}
+
+\def\shownotes{1}   % set 1 for version with author notes
+                    % set 0 for no notes
+
+
+
+%uncomment to get hyperlinks
+%\usepackage{hyperref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Some macros (you can ignore everything until "end of macros")
+
+\topmargin 0pt \advance \topmargin by -\headheight \advance
+\topmargin by -\headsep
+
+\textheight 8.9in
+
+\oddsidemargin 0pt \evensidemargin \oddsidemargin \marginparwidth
+0.5in
+
+\textwidth 6.5in
+
+%%%%%%
+
+\providecommand{\vs}{vs. }
+\providecommand{\ie}{\emph{i.e.,} }
+\providecommand{\eg}{\emph{e.g.,} }
+\providecommand{\cf}{\emph{cf.,} }
+\providecommand{\etc}{\emph{etc.} }
+
+\newcommand{\getsr}{\gets_{\mbox{\tiny R}}}
+\newcommand{\bits}{\{0,1\}}
+\newcommand{\bit}{\{0,1\}}
+\newcommand{\Ex}{\mathbb{E}}
+\newcommand{\eqdef}{\stackrel{def}{=}}
+\newcommand{\To}{\rightarrow}
+\newcommand{\e}{\epsilon}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Gen}{\mathsf{Gen}}
+\newcommand{\Enc}{\mathsf{Enc}}
+\newcommand{\Dec}{\mathsf{Dec}}
+\newcommand{\Sign}{\mathsf{Sign}}
+\newcommand{\Ver}{\mathsf{Ver}}
+
+\providecommand{\mypara}[1]{\smallskip\noindent\emph{#1} }
+\providecommand{\myparab}[1]{\smallskip\noindent\textbf{#1} }
+\providecommand{\myparasc}[1]{\smallskip\noindent\textsc{#1} }
+\providecommand{\para}{\smallskip\noindent}
+
+
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem{ex}{Exercise}
+\newtheorem{definition}{Definition}
+
+%%%%%%%  Author Notes %%%%%%%d
+%
+\ifnum\shownotes=1
+\newcommand{\authnote}[2]{{ $\ll$\textsf{\footnotesize #1 notes: #2}$\gg$}}
+\else
+\newcommand{\authnote}[2]{}
+\fi
+\newcommand{\Snote}[1]{{\authnote{Solution}{#1}}}
+\newcommand{\Inote}[1]{{\authnote{Solution}{#1}}}
+\newcommand{\Ichanged}[1]{{\authnote{Changed}{#1}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\VAR}{\mathrm{VAR}}
+
+
+
+% end of macros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% page counting, header/footer
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{\footnotesize \parbox{11cm}{CS538, Boston University, Fall 2015} }
+\rhead{Erik Brakke}
+\renewcommand{\headheight}{24pt}
+
+\begin{document}
+
+\title{Homework 5}
+\author{Erik Brakke}
+\maketitle
+
+\thispagestyle{fancy}
+
+\myparab{Collaborators: }  Alison Kendler, Kyle Hogan, Isaac Cohen.
+ 
+ 
+\section*{Answer 1}
+Proof: We know that $f$ is a permutation\\
+Thus, we know that the last $2k$ bits of $f'$ are a permutation on $\{0,1\}^{2k}$\\
+The first $k$ bits are all independent of each other, making the total possibilities of the first $k$ bits $2^k$\\
+This means that $f'$ has $2^{3k}$ possible outputs\\
+$x$ always has an output for $f$, and $c$ can always be found for $x$\\
+This means that any $x$ of length $3k$ always has an output for $f'$\\
+For $x \neq y$, either $f(x) \neq f(y)$ or $c(s_x) \neq c(s_y)$\\
+It is possible for the minority bits to all be in the same positions, but if $x \neq y$, then the majority bit must be different\\
+It is possible for the majority bits to all be the same, but if $x \neq y$, then the minority bit must be in a different position\\
+This means that $f'(x)$ has a unique output in $\{0,1\}^{3k}$\\
+This means that $f'$ is a permutation\\
+\newline
+Now I will prove the one-wayness of $f'$ with a reduction\\
+Let's assume that $f'$ was not a one-way function.  This means that there is an algorithm $D$ such that given $f'(x)$, $D$ could compute $x$ in polynomial-time\\
+We can use the fact that we can reverse $f'$ to reverse $f$\\
+Given $f'(s)$ we can use $D$ to find $s$.\\
+Once we have $s$, we can compute easily compute $d(s_1) \circ ... \circ d(s_k)$\\
+These are the inputs to $f$, meaning that using $D$ we can reverse $f$\\
+However we assumed that $f$ was a one way functions, therefore $f'$ must be a one way function as well\\
+\qed
+
+Given a bit position $i$, one can compute $i//3$ to figure out $c$ by looking at the $i//3$ position of $f'(x)$.  This is the majority bit of the group of 3 that $i$ is in\\
+If the majority bit is $1$, then $\Pr[i = 1] = 3/4$ because out of the 4 possible combinations where $c = 1$, 1 appears 9 times out of the $12$ bits\\
+The same logic holds for $c = 0$\\
+Because computing $i//3$ runs in polynomial time, and worst case you would have to search $k$ positions, the algorithm runs in linear time\\
+
+\section*{Answer 2}
+We can use CRT to compute $c_{DB} = m^2 mod (n_d * n_b)$\\
+We know that if $m < \sqrt{n}$, then given $c$, m is just the integer square root of $c$\\
+$m$ must be less than $\sqrt{n_d * n_b}$ because $m < min(n_d,n_b)$\\
+$min(n_d,n_b) < \sqrt(n_d * n_b)$\\
+So now we can just take the integer square root of $c_{DB}$ to get $m$\\
+
+\section*{Answer 3}
+Let's assume we have an algorithm $R$ that can predict $SK$ with non negligible probability\\
+Now we can use $R$ to build a distinguisher $D$ that can break the definition of secure multi-bit encryption\\
+$D$ chooses two messages $m_0,m_1$ after seeing $PK$\\
+$D$ then uses $R$ to compute $SK$ from $PK$ with non negligible probability\\
+When $D$ is presented with $Enc_{PK}(m)$, he can run $Dec_{SK}(Enc_{PK}(m))$ to obtain $m$\\
+He can then distinguish between $m_0,m_1$ with non-negligible probability\\
+This contradicts our assumption that (Gen,Enc,Dec) is a secure public key crypto system\\
+Therefore, such an $R$ cannot exist\\
+\qed
+
+
+\noindent\hrulefill
+
+
+\section*{References}
+
+None
+
+\end{document} 
