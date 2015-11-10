@@ -112,7 +112,7 @@ If we let $S$ be the event that $D$ guesses $b$ correctly, we have $\Pr[S] = \Pr
 We know that $Pr[S] = 1/2 + \epsilon$\\
 $1/2 + \epsilon = \Pr[S|E]\Pr[E] + 1/2(1 - \Pr[E])$\\
 $1/2 + \epsilon = \Pr[E] + 1/2 - \Pr[E]/2$ (Because if $E$, then $D$ will distinguish)\\
-$2*\epsilon \le \Pr[E]$
+$\epsilon \le \Pr[E]$
 
 	\item[(b)] Let's use $D$ to build a function $R$ that can reverse the OWF $f$\\
 We will give $R$ the inputs $PK, y$ and will expect that $R$ can use $D$ to output $f^{-1}(y)$ with non-negligible probability\\
