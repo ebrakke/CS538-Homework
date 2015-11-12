@@ -112,25 +112,18 @@ If we let $S$ be the event that $D$ guesses $b$ correctly, we have $\Pr[S] = \Pr
 We know that $Pr[S] = 1/2 + \epsilon$\\
 $1/2 + \epsilon = \Pr[S|E]\Pr[E] + 1/2(1 - \Pr[E])$\\
 $1/2 + \epsilon = \Pr[E] + 1/2 - \Pr[E]/2$ (Because if $E$, then $D$ will distinguish)\\
-$\epsilon \le \Pr[E]$
+$2*\epsilon \le \Pr[E]$
 
 	\item[(b)] Let's use $D$ to build a function $R$ that can reverse the OWF $f$\\
 We will give $R$ the inputs $PK, y$ and will expect that $R$ can use $D$ to output $f^{-1}(y)$ with non-negligible probability\\
-$F$ will then ask $q_{hash}$ queries to $H$ and $q_{enc}$ queries to $Enc(m)$ and distinguish between them\\
-We can assume that $F$ will query $H$ for $H(a_j)$ before asking for $Enc(m_j)$ because without the hash information, he cannot tell anything about the response he will get\\
-We can also assume that before generating $m_0,m_1$ $F$ will ask $H$ for the hash of two number $r_0,r_1 \in D_i$ because $F$ will need this info to distinguish the output of $Enc$\\
+Let's assume that $F$ will has $H$ for the hash of 2 values $r_0, r_1$ before sending $m_0,m_1$ to $Enc$ (because he will need these to distinguish)
 $R$ must create $H(a_j)$ as such:\\
 If $a_j$ has been queried before, then output the same value $s_j$.  If not then output a random $s \in D_i$ and store the value\\
 $R$ must create $Enc(m_j)$ in the following way:\\
 Find $a_j, s_j$ and output $(f_i(a_j), s_j \oplus m_j)$ where $f$ is the OWF\\
-When $D$ is ready to guess, he will send $Enc(m_0)$ and $Enc(m_1)$\\
-$R$ will return $(y, H(r_0) \oplus m_0)$\\
-If $D$ returns $0$, then $R$ can output $r_0$ as the inverse of $y$, else abort\\
-This gives $R$ a probability of $\epsilon$ chance of inverting $y$\\
-This is because we know that there is a non-negligible chance that $D$ has to ask $H(r)$ where $r = f^{-1}(y)$\\
-Therefore, if we choose $m_0$ to be the message we encrypt and send $y$ to $D$ along with $H(r) \oplus m_0$, and $F$ says that this message is $m_0$, then that means that $D$ was able to distinguish this because $r$ was chosen correctly.\\
-We know that $D$ has a probability of $\epsilon$ of asking for $r$ by the previous part\\
-And now we have a 1/2 chance of choosing the correct $m$ to encrypt.  Therefore $R$ has an $\epsilon / 2$ chance of reverting $f$, which is non-negligible\\
+When $D$ is ready to guess, he will send $m_0$ and $m_1$ to $Enc$\\
+$Enc$ will choose a message $m_b$ and return $(y, H(r_b) \oplus m_b)$
+Now $R$ can run the OWF $f$ on $r_0$ and $r_1$ to see which one is $f^{-1}(y)$
 This is a contradiction, because we assumed $f$ was a OWF, therefore this encryption scheme is polynomially secure\\
 \qed
 
@@ -148,6 +141,13 @@ The outputs will always be independent of eachother because either $s$ will be d
 Because we take $H(n||s)$ first, we are guarenteed that this will be unique (i.e. no collisions with greater than negligible probability)\\
 This means that $h_2...h_i$ will also be unique, so concatonating them together will give us indepent outputs
 
+\section*{Answer 3}
+The adversary $A$ will generate $m_0,m_1$\\
+He will then receive $(c = g^{ab} * m_b \text{ mod } p, g^b \text{ mod } p)$\\
+$A$ can then compute $(g^{ab} * m_b * g^b \text{ mod } p, g^b \text { mod } p$ and send this to $Dec$\\
+$A$ will get $m_b * g^b \text{ mod } p$ back\\
+He can then multiply by the inverse of $g^b \text{ mod } p$ and recover $m_b$\\
+Then he will be able to distinguish
 \noindent\hrulefill
 
 
